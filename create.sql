@@ -2,11 +2,11 @@ create table aircraft (id bigint not null auto_increment, code varchar(255), nam
 create table aircraft_schedules (aircraft_id bigint not null, schedules_id bigint not null) engine=InnoDB;
 create table airline (id bigint not null auto_increment, code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
 create table airline_schedules (airline_id bigint not null, schedules_id bigint not null) engine=InnoDB;
-create table airport (country_id integer, id bigint not null auto_increment, code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
+create table airport (country_id integer, latitude float(53) not null, longitude float(53) not null, id bigint not null auto_increment, code varchar(255), country_code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
 create table airport_schedules (airport_id bigint not null, schedules_id bigint not null) engine=InnoDB;
 create table country (id integer not null auto_increment, code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
 create table country_airports (country_id integer not null, airports_id bigint not null) engine=InnoDB;
-create table schedule (duration decimal(21,0), aircraft_id bigint, airline_id bigint, arriaval_airport_id bigint, arrival_date_time datetime(6), departure_airport_id bigint, departure_date_time datetime(6), id bigint not null auto_increment, primary key (id)) engine=InnoDB;
+create table schedule (duration decimal(21,0), aircraft_id bigint, airline_id bigint, arriaval_airport_id bigint, arrival_date_time datetime(6), departure_airport_id bigint, departure_date_time datetime(6), id bigint not null auto_increment, flight_number varchar(255), primary key (id)) engine=InnoDB;
 alter table aircraft_schedules add constraint UKgm4ihl5yil1bgig07rp7bpq1m unique (schedules_id);
 alter table airline_schedules add constraint UKg1pxy019rnc2xnnwi90f35ig8 unique (schedules_id);
 alter table airport_schedules add constraint UKnm4lfky1mnxx4ejhwptevghkb unique (schedules_id);

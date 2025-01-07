@@ -1,6 +1,6 @@
 rootProject.name = 'Luftzug'
 include 'Luftzug-Data'
-include 'Luftzug-Client'
+include 'Luftzug-schedule-client'
 include 'Luftzug-Updater'
 include 'Luftzug-Viewer'
 

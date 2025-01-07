@@ -9,10 +9,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Luftzug-Client" />
             <option value="$PROJECT_DIR$/Luftzug-Data" />
             <option value="$PROJECT_DIR$/Luftzug-Updater" />
             <option value="$PROJECT_DIR$/Luftzug-Viewer" />
+            <option value="$PROJECT_DIR$/Luftzug-schedule-client" />
           </set>
         </option>
       </GradleProjectSettings>

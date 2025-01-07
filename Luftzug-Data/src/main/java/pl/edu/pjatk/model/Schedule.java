@@ -12,6 +12,7 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String flightNumber;
     private Duration duration;
     private LocalDateTime departureDateTime;
     private LocalDateTime arrivalDateTime;
@@ -31,6 +32,10 @@ public class Schedule {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getFlightNumber(){return flightNumber;}
+
+    public void setFlightNumber(String flightNumber){this.flightNumber = flightNumber;}
 
     public Duration getDuration() {
         return duration;
