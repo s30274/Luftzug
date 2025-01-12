@@ -3,4 +3,6 @@ include 'Luftzug-Data'
 include 'Luftzug-schedule-client'
 include 'Luftzug-Updater'
 include 'Luftzug-Viewer'
+include 'Luftzug-Web-Api'
+include 'Luftzug-Schedule-Updater'
 

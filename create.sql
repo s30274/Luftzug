@@ -2,7 +2,7 @@ create table aircraft (id bigint not null auto_increment, code varchar(255), nam
 create table aircraft_schedules (aircraft_id bigint not null, schedules_id bigint not null) engine=InnoDB;
 create table airline (id bigint not null auto_increment, code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
 create table airline_schedules (airline_id bigint not null, schedules_id bigint not null) engine=InnoDB;
-create table airport (country_id integer, latitude float(53) not null, longitude float(53) not null, id bigint not null auto_increment, code varchar(255), country_code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
+create table airport (country_id integer, latitude float(53) not null, longitude float(53) not null, id bigint not null auto_increment, code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
 create table airport_schedules (airport_id bigint not null, schedules_id bigint not null) engine=InnoDB;
 create table country (id integer not null auto_increment, code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
 create table country_airports (country_id integer not null, airports_id bigint not null) engine=InnoDB;

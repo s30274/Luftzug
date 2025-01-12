@@ -1,0 +1,6 @@
+rootProject.name = 'Luftzug-Updater'
+
+include 'Luftzug-Data'
+project(':Luftzug-Data').projectDir = new File(settingsDir,'../Luftzug-Data')
+include 'Luftzug-Schedule-Client'
+project(':Luftzug-Schedule-Client').projectDir = new File(settingsDir,'../Luftzug-Schedule-Client')
