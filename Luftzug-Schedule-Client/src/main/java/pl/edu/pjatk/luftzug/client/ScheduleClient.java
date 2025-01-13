@@ -25,106 +25,75 @@ public class ScheduleClient implements IScheduleClient {
 
     @Override
     public List<AircraftDto> getAllAircrafts() {
-        List<AircraftDto> aircraftList = new ArrayList<>();
-        AircraftRoot aircraftRoot = getPagedAircraft(1, pageSize);
-        aircraftList.addAll(aircraftRoot.aircraftResource().aircrafts().aircraftDtos());
+        AircraftRoot aircraftRoot = getPagedRoot(1, pageSize, AircraftRoot.class);
+        List<AircraftDto> aircraftList = new ArrayList<>(aircraftRoot.aircraftResource().aircrafts().aircraftDtos());
 
         int pages = getNumberOfPages(aircraftRoot.aircraftResource().meta().count(), pageSize);
         for(int i=2; i<=pages; i++){
-            aircraftList.addAll(getPagedAircraft(i, pageSize).aircraftResource().aircrafts().aircraftDtos());
+            aircraftList.addAll((getPagedRoot(i, pageSize, AircraftRoot.class)).aircraftResource().aircrafts().aircraftDtos());
         }
         return aircraftList;
     }
-
-    private AircraftRoot getPagedAircraft(int page, int pagesize){
-        String uri = getPageUri(page, pagesize, "aircraft");
-        wait200ms();             // Wait 200ms so queries per second limit won't be exceeded
-        return restClient.get()
-                .uri(uri)
-                .header("Accept", "application/json")
-                .header("Authorization", "Bearer "+token)
-                .retrieve()
-                .body(AircraftRoot.class);
-    }
-
     @Override
     public List<AirlineDto> getAllAirlines() {
-        List<AirlineDto> airlineList = new ArrayList<>();
-        AirlineRoot airlineRoot = getPagedAirline(1, pageSize);
-        airlineList.addAll(airlineRoot.airlineResource().airlines().airlineDtos());
+        AirlinesRoot airlinesRoot = getPagedRoot(1, pageSize, AirlinesRoot.class);
+        List<AirlineDto> airlineList = new ArrayList<>(airlinesRoot.airlineResource().airlines().airlineDtos());
 
-        int pages = getNumberOfPages(airlineRoot.airlineResource().meta().count(), pageSize);
+        int pages = getNumberOfPages(airlinesRoot.airlineResource().meta().count(), pageSize);
         for(int i=2; i<=pages; i++){
-            airlineList.addAll(getPagedAirline(i, pageSize).airlineResource().airlines().airlineDtos());
+            airlineList.addAll(getPagedRoot(i, pageSize, AirlinesRoot.class).airlineResource().airlines().airlineDtos());
         }
         return airlineList;
     }
 
-    private AirlineRoot getPagedAirline(int page, int pagesize){
-        String uri = getPageUri(page, pagesize, "airlines");
-        wait200ms();             // Wait 200ms so queries per second limit won't be exceeded
-        return restClient.get()
-                .uri(uri)
-                .header("Accept", "application/json")
-                .header("Authorization", "Bearer "+token)
-                .retrieve()
-                .body(AirlineRoot.class);
-    }
-
     @Override
     public List<AirportDto> getAllAirports() {
-        List<AirportDto> airportList = new ArrayList<>();
-        AirportRoot airportRoot = getPagedAirport(1, pageSize);
-        airportList.addAll(airportRoot.airportResource().airports().airportDtos());
+        AirportsRoot airportsRoot = getPagedRoot(1, pageSize, AirportsRoot.class);
+        List<AirportDto> airportList = new ArrayList<>(airportsRoot.airportResource().airports().airportDtos());
 
-        int pages = getNumberOfPages(airportRoot.airportResource().meta().count(), pageSize);
+        int pages = getNumberOfPages(airportsRoot.airportResource().meta().count(), pageSize);
         for(int i=2; i<=pages; i++){
-             airportList.addAll(getPagedAirport(i, pageSize).airportResource().airports().airportDtos());
+             airportList.addAll(getPagedRoot(i, pageSize, AirportsRoot.class).airportResource().airports().airportDtos());
         }
         return airportList;
     }
 
-    private AirportRoot getPagedAirport(int page, int pagesize){
-        String uri = getPageUri(page, pagesize, "airports");
-        wait200ms();             // Wait 200ms so queries per second limit won't be exceeded
-        return restClient.get()
-                .uri(uri)
-                .header("Accept", "application/json")
-                .header("Authorization", "Bearer "+token)
-                .retrieve()
-                .body(AirportRoot.class);
-    }
-
-    private void wait200ms(){
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
     @Override
     public List<CountryDto> getAllCountries() {
-        List<CountryDto> countryList = new ArrayList<>();
-        CountryRoot countryRoot = getPagedCountry(1, pageSize);
-        countryList.addAll(countryRoot.countryResource().countries().countryDtos());
+        CountriesRoot countriesRoot = getPagedRoot(1, pageSize, CountriesRoot.class);
+        List<CountryDto> countryList = new ArrayList<>(countriesRoot.countryResource().countries().countryDtos());
 
-        int pages = getNumberOfPages(countryRoot.countryResource().meta().count(), pageSize);
+        int pages = getNumberOfPages(countriesRoot.countryResource().meta().count(), pageSize);
         for(int i=2; i<=pages; i++){
-            countryList.addAll(getPagedCountry(i, pageSize).countryResource().countries().countryDtos());
+            countryList.addAll(getPagedRoot(i, pageSize, CountriesRoot.class).countryResource().countries().countryDtos());
         }
         return countryList;
     }
 
-    private CountryRoot getPagedCountry(int page, int pagesize){
-        String uri = getPageUri(page, pagesize, "countries");
-        wait200ms();             // Wait 200ms so queries per second limit won't be exceeded
+    public <T extends IRoot> T getPagedRoot(int page, int pageSize, Class<T> clazz){
+        String uri = getPageUri(page, pageSize, clazz.getSimpleName().toLowerCase().substring(0, clazz.getSimpleName().length()-4));    // Get class name without the 'Root' postfix
+        wait200ms();    // Wait 200ms so queries per second limit won't be exceeded
         return restClient.get()
                 .uri(uri)
                 .header("Accept", "application/json")
                 .header("Authorization", "Bearer "+token)
                 .retrieve()
-                .body(CountryRoot.class);
+                .body(clazz);
+    }
+
+    private int getNumberOfPages(int count, int pageSize){
+        return (int) Math.ceil((double) count / (double) pageSize);
+    }
+
+    private String getPageUri(int page, int pageSize, String segment){
+        return provider.builder()
+                .pathSegment("mds-references")
+                .pathSegment(segment)
+                .queryParam("lang", "EN")
+                .queryParam("limit", pageSize)
+                .queryParam("offset", (page-1)*pageSize)
+                .queryParam("LHoperated", 1)
+                .toUriString();
     }
 
     @Override
@@ -140,17 +109,6 @@ public class ScheduleClient implements IScheduleClient {
                 .scheduleResource().scheduleDtos();
     }
 
-    private String getPageUri(int page, int pageSize, String segment){
-        return provider.builder()
-                .pathSegment("mds-references")
-                .pathSegment(segment)
-                .queryParam("lang", "EN")
-                .queryParam("limit", pageSize)
-                .queryParam("offset", (page-1)*pageSize)
-                .queryParam("LHoperated", 1)
-                .toUriString();
-    }
-
     private String getScheduleUri(String departureAirport, String arrivalAirport, LocalDate date){
         return provider.builder()
                 .pathSegment("operations")
@@ -162,7 +120,11 @@ public class ScheduleClient implements IScheduleClient {
                 .toUriString();
     }
 
-    private int getNumberOfPages(int count, int pageSize){
-        return (int) Math.ceil((double) count / (double) pageSize);
+    private void wait200ms(){
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

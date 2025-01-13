@@ -9,7 +9,7 @@ alter table country_airports drop foreign key FKjjo812bq9x2b4o74pvf0wlvdm;
 alter table country_airports drop foreign key FK1j4rbhiy5mid6jophl9iyjwfo;
 alter table schedule drop foreign key FKm23tnlatjmbxrr5l262ga3mkb;
 alter table schedule drop foreign key FKskc8fp5bypp42fyed86xr7e2n;
-alter table schedule drop foreign key FKrnere1b08uxep7mnkrt84n9rc;
+alter table schedule drop foreign key FK4c8rdl0biudwvsiobe8vd4i5q;
 alter table schedule drop foreign key FKgcs9isiaiip107cemy5jjuld3;
 drop table if exists aircraft;
 drop table if exists aircraft_schedules;

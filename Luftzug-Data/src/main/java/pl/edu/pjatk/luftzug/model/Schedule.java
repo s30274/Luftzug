@@ -19,7 +19,7 @@ public class Schedule {
     @ManyToOne
     private Airport departureAirport;
     @ManyToOne
-    private Airport arriavalAirport;
+    private Airport arrivalAirport;
     @ManyToOne
     private Airline airline;
     @ManyToOne
@@ -69,12 +69,12 @@ public class Schedule {
         this.departureAirport = departureAirport;
     }
 
-    public Airport getArriavalAirport() {
-        return arriavalAirport;
+    public Airport getArrivalAirport() {
+        return arrivalAirport;
     }
 
-    public void setArriavalAirport(Airport arriavalAirport) {
-        this.arriavalAirport = arriavalAirport;
+    public void setArrivalAirport(Airport arriavalAirport) {
+        this.arrivalAirport = arriavalAirport;
     }
 
     public Airline getAirline() {
@@ -98,11 +98,11 @@ public class Schedule {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Schedule schedule = (Schedule) o;
-        return Objects.equals(id, schedule.id) && Objects.equals(duration, schedule.duration) && Objects.equals(departureDateTime, schedule.departureDateTime) && Objects.equals(arrivalDateTime, schedule.arrivalDateTime) && Objects.equals(departureAirport, schedule.departureAirport) && Objects.equals(arriavalAirport, schedule.arriavalAirport) && Objects.equals(airline, schedule.airline) && Objects.equals(aircraft, schedule.aircraft);
+        return Objects.equals(id, schedule.id) && Objects.equals(duration, schedule.duration) && Objects.equals(departureDateTime, schedule.departureDateTime) && Objects.equals(arrivalDateTime, schedule.arrivalDateTime) && Objects.equals(departureAirport, schedule.departureAirport) && Objects.equals(arrivalAirport, schedule.arrivalAirport) && Objects.equals(airline, schedule.airline) && Objects.equals(aircraft, schedule.aircraft);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, duration, departureDateTime, arrivalDateTime, departureAirport, arriavalAirport, airline, aircraft);
+        return Objects.hash(id, duration, departureDateTime, arrivalDateTime, departureAirport, arrivalAirport, airline, aircraft);
     }
 }

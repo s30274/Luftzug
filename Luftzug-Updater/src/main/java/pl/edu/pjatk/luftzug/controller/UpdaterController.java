@@ -21,7 +21,7 @@ public class UpdaterController {
 
     @GetMapping("start")
     public ResponseEntity start(@RequestParam String departureAirport, @RequestParam String arrivalAirport, @RequestParam LocalDate date){
-        updater.updateAll(departureAirport, arrivalAirport, date);
+        updater.updateSchedulesOnly(departureAirport, arrivalAirport, date);
 
         return ResponseEntity.ok("Update started on " + LocalDateTime.now());
     }

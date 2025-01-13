@@ -1,0 +1,4 @@
+rootProject.name = 'Luftzug-Web-Api'
+
+include 'Luftzug-Data'
+project(':Luftzug-Data').projectDir = new File(settingsDir, '../Luftzug-Data')

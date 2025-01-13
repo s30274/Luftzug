@@ -25,7 +25,7 @@ public class ScheduleMapper implements IMapEntities<ScheduleDto, Schedule> {
         schedule.setDuration(scheduleDto.totalJourney().duration());
         schedule.setDepartureAirport(getAirport(scheduleDto.flight().departure().code()));
         schedule.setDepartureDateTime(scheduleDto.flight().departure().scheduledTimeLocal().localDateTime());
-        schedule.setArriavalAirport(getAirport(scheduleDto.flight().arrival().code()));
+        schedule.setArrivalAirport(getAirport(scheduleDto.flight().arrival().code()));
         schedule.setArrivalDateTime(scheduleDto.flight().arrival().scheduledTimeLocal().localDateTime());
         schedule.setFlightNumber(scheduleDto.flight().marketingCarrier().flightNumber());
         schedule.setAirline(getAirline(scheduleDto.flight().marketingCarrier().code()));

@@ -43,6 +43,7 @@ public class ScheduleUpdater implements IUpdateSchedules{
         try{
             data.getAircrafts().saveAll(mapAllAircrafts());
         } catch(Exception ex){
+            System.out.println();
             System.out.println(ex);
         }
     }
@@ -75,7 +76,7 @@ public class ScheduleUpdater implements IUpdateSchedules{
         try{
             data.getSchedules().saveAll(mapAllSchedules(departureAirport, arrivalAirport, date));
         } catch (Exception ex){
-            System.out.println(ex);
+            System.out.println("Could not find flight from "+departureAirport+" to "+arrivalAirport+" on "+date);
         }
     }
 

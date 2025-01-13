@@ -6,7 +6,7 @@ create table airport (country_id integer, latitude float(53) not null, longitude
 create table airport_schedules (airport_id bigint not null, schedules_id bigint not null) engine=InnoDB;
 create table country (id integer not null auto_increment, code varchar(255), name varchar(255), primary key (id)) engine=InnoDB;
 create table country_airports (country_id integer not null, airports_id bigint not null) engine=InnoDB;
-create table schedule (duration decimal(21,0), aircraft_id bigint, airline_id bigint, arriaval_airport_id bigint, arrival_date_time datetime(6), departure_airport_id bigint, departure_date_time datetime(6), id bigint not null auto_increment, flight_number varchar(255), primary key (id)) engine=InnoDB;
+create table schedule (duration decimal(21,0), aircraft_id bigint, airline_id bigint, arrival_airport_id bigint, arrival_date_time datetime(6), departure_airport_id bigint, departure_date_time datetime(6), id bigint not null auto_increment, flight_number varchar(255), primary key (id)) engine=InnoDB;
 alter table aircraft_schedules add constraint UKgm4ihl5yil1bgig07rp7bpq1m unique (schedules_id);
 alter table airline_schedules add constraint UKg1pxy019rnc2xnnwi90f35ig8 unique (schedules_id);
 alter table airport_schedules add constraint UKnm4lfky1mnxx4ejhwptevghkb unique (schedules_id);
@@ -22,5 +22,5 @@ alter table country_airports add constraint FKjjo812bq9x2b4o74pvf0wlvdm foreign 
 alter table country_airports add constraint FK1j4rbhiy5mid6jophl9iyjwfo foreign key (country_id) references country (id);
 alter table schedule add constraint FKm23tnlatjmbxrr5l262ga3mkb foreign key (aircraft_id) references aircraft (id);
 alter table schedule add constraint FKskc8fp5bypp42fyed86xr7e2n foreign key (airline_id) references airline (id);
-alter table schedule add constraint FKrnere1b08uxep7mnkrt84n9rc foreign key (arriaval_airport_id) references airport (id);
+alter table schedule add constraint FK4c8rdl0biudwvsiobe8vd4i5q foreign key (arrival_airport_id) references airport (id);
 alter table schedule add constraint FKgcs9isiaiip107cemy5jjuld3 foreign key (departure_airport_id) references airport (id);
