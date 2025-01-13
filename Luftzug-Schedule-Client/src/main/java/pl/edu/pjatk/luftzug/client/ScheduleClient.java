@@ -144,6 +144,7 @@ public class ScheduleClient implements IScheduleClient {
         return provider.builder()
                 .pathSegment("mds-references")
                 .pathSegment(segment)
+                .queryParam("lang", "EN")
                 .queryParam("limit", pageSize)
                 .queryParam("offset", (page-1)*pageSize)
                 .queryParam("LHoperated", 1)

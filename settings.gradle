@@ -5,4 +5,5 @@ include 'Luftzug-Updater'
 include 'Luftzug-Viewer'
 include 'Luftzug-Web-Api'
 include 'Luftzug-Schedule-Updater'
+include 'Luftzug-Schedule-Client'
 

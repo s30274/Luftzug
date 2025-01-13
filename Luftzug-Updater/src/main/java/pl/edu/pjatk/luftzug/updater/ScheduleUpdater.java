@@ -21,16 +21,62 @@ public class ScheduleUpdater implements IUpdateSchedules{
 
     @Override
     public void updateAll(String departureAirport, String arrivalAirport, LocalDate date) {
-        data.getAircrafts().saveAll(mapAllAircrafts());
-        data.getAirlines().saveAll(mapAllAirlines());
-        data.getCountries().saveAll(mapAllCountries());
-        data.getAirports().saveAll(mapAllAirports());
-        data.getSchedules().saveAll(mapAllSchedules(departureAirport, arrivalAirport, date));
+        saveAll(departureAirport, arrivalAirport, date);
+        System.out.println("Finished updating");
     }
 
     @Override
     public void updateSchedulesOnly(String departureAirport, String arrivalAirport, LocalDate date){
-        data.getSchedules().saveAll(mapAllSchedules(departureAirport, arrivalAirport, date));
+        saveSchedules(departureAirport, arrivalAirport, date);
+        System.out.println("Finished updating");
+    }
+
+    private void saveAll(String departureAirport, String arrivalAirport, LocalDate date){
+        saveAircrafts();
+        saveAirlines();
+        saveCountries();
+        saveAirports();
+        saveSchedules(departureAirport, arrivalAirport, date);
+    }
+
+    private void saveAircrafts(){
+        try{
+            data.getAircrafts().saveAll(mapAllAircrafts());
+        } catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
+
+    private void saveAirlines(){
+        try{
+            data.getAirlines().saveAll(mapAllAirlines());
+        } catch (Exception ex){
+            System.out.println(ex);
+        }
+    }
+
+    private void saveCountries(){
+        try{
+            data.getCountries().saveAll(mapAllCountries());
+        } catch (Exception ex){
+            System.out.println(ex);
+        }
+    }
+
+    private void saveAirports(){
+        try{
+            data.getAirports().saveAll(mapAllAirports());
+        } catch (Exception ex){
+            System.out.println(ex);
+        }
+    }
+
+    private void saveSchedules(String departureAirport, String arrivalAirport, LocalDate date){
+        try{
+            data.getSchedules().saveAll(mapAllSchedules(departureAirport, arrivalAirport, date));
+        } catch (Exception ex){
+            System.out.println(ex);
+        }
     }
 
     private List<Aircraft> mapAllAircrafts(){

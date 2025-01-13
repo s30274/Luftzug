@@ -7,4 +7,7 @@ import javax.lang.model.element.Name;
 import java.util.List;
 import java.util.Map;
 
-public record Names(@JsonProperty("Name") JsonNode nameList){}
+public record Names(@JsonProperty("Name") Name name){
+    public record Name(@JsonProperty("@LanguageCode") String languageCode,
+                       @JsonProperty("$") String value){}
+}

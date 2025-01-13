@@ -22,5 +22,12 @@ public class LuftzugUpdaterApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         updater.updateAll("WAW", "ZRH", LocalDate.now());
+        updater.updateSchedulesOnly("ZRH", "WAW", LocalDate.now());
+        updater.updateSchedulesOnly("CTA", "ZRH", LocalDate.now());
+        updater.updateSchedulesOnly("ZRH", "CTA", LocalDate.now());
+        updater.updateSchedulesOnly("ZDH", "ZRH", LocalDate.now());
+        updater.updateSchedulesOnly("ZRH", "ZDH", LocalDate.now());
+        updater.updateSchedulesOnly("WAW", "MUC", LocalDate.now());
+        updater.updateSchedulesOnly("MUC", "ZDH", LocalDate.now());
     }
 }

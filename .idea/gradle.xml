@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Luftzug-Data" />
+            <option value="$PROJECT_DIR$/Luftzug-Schedule-Client" />
             <option value="$PROJECT_DIR$/Luftzug-Schedule-Updater" />
             <option value="$PROJECT_DIR$/Luftzug-Updater" />
             <option value="$PROJECT_DIR$/Luftzug-Viewer" />
