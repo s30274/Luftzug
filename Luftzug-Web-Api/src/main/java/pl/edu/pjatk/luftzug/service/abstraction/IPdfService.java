@@ -1,4 +1,4 @@
-package pl.edu.pjatk.luftzug.service;
+package pl.edu.pjatk.luftzug.service.abstraction;
 
 import org.springframework.http.ResponseEntity;
 import pl.edu.pjatk.luftzug.model.Schedule;

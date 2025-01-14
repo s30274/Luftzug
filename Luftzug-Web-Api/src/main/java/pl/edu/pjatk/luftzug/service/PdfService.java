@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.luftzug.model.Schedule;
+import pl.edu.pjatk.luftzug.service.abstraction.IPdfService;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class PdfService implements IPdfService{
+public class PdfService implements IPdfService {
     public ResponseEntity<byte[]> createPdfResponse(Optional<Schedule> schedule, String filename) throws IOException {
         byte[] contents = generatePdfContents(schedule);
         HttpHeaders headers = getHttpHeadersForPdf(filename);
