@@ -1,32 +1,31 @@
 package pl.edu.pjatk.luftzug.service;
 
-import pl.edu.pjatk.luftzug.model.Aircraft;
 import pl.edu.pjatk.luftzug.model.Airline;
-import pl.edu.pjatk.luftzug.repository.ICatalogData;
+import pl.edu.pjatk.luftzug.repository.AirlineRepository;
 import pl.edu.pjatk.luftzug.service.abstraction.IAirlineService;
 
 import java.util.List;
 import java.util.Optional;
 
 public class AirlineService implements IAirlineService {
-    private final ICatalogData data;
+    private final AirlineRepository repository;
 
-    public AirlineService(ICatalogData data){
-        this.data = data;
+    public AirlineService(AirlineRepository repository){
+        this.repository = repository;
     }
 
     @Override
     public List<Airline> getAllAirlines() {
-        return this.data.getAirlines().findAll();
+        return this.repository.findAll();
     }
 
     @Override
     public Optional<Airline> getAirlineById(Long id) {
-        return this.data.getAirlines().findById(id);
+        return this.repository.findById(id);
     }
 
     @Override
     public Optional<Airline> getAirlineByCode(String code){
-        return this.data.getAirlines().findAirlineByCode(code).stream().findFirst();
+        return this.repository.findAirlineByCode(code).stream().findFirst();
     }
 }

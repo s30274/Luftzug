@@ -16,9 +16,9 @@ public interface IScheduleService {
 
     List<Schedule> getScheduleByFlightNumber(String flightNumber);
 
-    void saveSchedule(Schedule schedule);
+    Schedule saveSchedule(Schedule schedule);
 
-    void updateSchedule(Schedule newSchedule, Schedule scheduleToUpdate);
+    Schedule updateSchedule(Schedule newSchedule, Schedule scheduleToUpdate);
 
     void deleteSchedule(Long id);
 }

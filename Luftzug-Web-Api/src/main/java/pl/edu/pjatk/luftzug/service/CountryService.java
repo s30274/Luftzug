@@ -1,31 +1,31 @@
 package pl.edu.pjatk.luftzug.service;
 
 import pl.edu.pjatk.luftzug.model.Country;
-import pl.edu.pjatk.luftzug.repository.ICatalogData;
+import pl.edu.pjatk.luftzug.repository.CountryRepository;
 import pl.edu.pjatk.luftzug.service.abstraction.ICountryService;
 
 import java.util.List;
 import java.util.Optional;
 
 public class CountryService implements ICountryService {
-    private final ICatalogData data;
+    private final CountryRepository repository;
 
-    public CountryService(ICatalogData data){
-        this.data = data;
+    public CountryService(CountryRepository repository){
+        this.repository = repository;
     }
 
     @Override
     public List<Country> getAllCountries() {
-        return this.data.getCountries().findAll();
+        return this.repository.findAll();
     }
 
     @Override
     public Optional<Country> getCountryById(Integer id) {
-        return this.data.getCountries().findById(id);
+        return this.repository.findById(id);
     }
 
     @Override
     public Optional<Country> getCountryByCode(String code){
-        return this.data.getCountries().findCountryByCode(code).stream().findFirst();
+        return this.repository.findCountryByCode(code).stream().findFirst();
     }
 }
