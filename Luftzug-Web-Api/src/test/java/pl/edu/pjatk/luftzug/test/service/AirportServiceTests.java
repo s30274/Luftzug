@@ -1,4 +1,4 @@
-package pl.edu.pjatk.luftzug.service;
+package pl.edu.pjatk.luftzug.test.service;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pjatk.luftzug.model.Airport;
 import pl.edu.pjatk.luftzug.repository.AirportRepository;
+import pl.edu.pjatk.luftzug.service.AirportService;
 
 import java.util.List;
 import java.util.Optional;

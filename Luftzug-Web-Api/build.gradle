@@ -24,7 +24,7 @@ dependencies {
     implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '3.0.3'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.15.2'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '5.2.0'
-
+    testImplementation 'com.h2database:h2'
 }
 
 test {
