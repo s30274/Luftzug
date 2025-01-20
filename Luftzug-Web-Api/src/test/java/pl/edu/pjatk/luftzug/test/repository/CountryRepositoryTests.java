@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import pl.edu.pjatk.luftzug.model.Country;
 import pl.edu.pjatk.luftzug.repository.CountryRepository;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class CountryRepositoryTests {
 
     @Autowired
@@ -27,7 +29,7 @@ public class CountryRepositoryTests {
     @Test
     @Order(1)
     @Rollback(value = false)
-    public void saveCountryTest() {
+    public void saveCountry() {
 
         Country country = new Country();
         country.setCode("CH");
@@ -42,7 +44,7 @@ public class CountryRepositoryTests {
 
     @Test
     @Order(2)
-    public void getCountryTest() {
+    public void getCountryById() {
 
         // action
         Country country = countryRepository.findById(1).get();
@@ -53,7 +55,18 @@ public class CountryRepositoryTests {
 
     @Test
     @Order(3)
-    public void getCountryListTest() {
+    public void getCountryByCode() {
+
+        // action
+        Country country = countryRepository.findCountryByCode("CH").getFirst();
+
+        // verify
+        assertThat(country.getCode()).isEqualTo("CH");
+    }
+
+    @Test
+    @Order(4)
+    public void getCountryList() {
 
         // action
         List<Country> countries = countryRepository.findAll();
@@ -63,9 +76,9 @@ public class CountryRepositoryTests {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @Rollback(value = false)
-    public void updateCountryTest() {
+    public void updateCountry() {
 
         // action
         Country country = countryRepository.findById(1).get();
@@ -77,9 +90,9 @@ public class CountryRepositoryTests {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @Rollback(value = false)
-    public void deleteCountryByIdTest(){
+    public void deleteCountryById(){
 
         // action
         countryRepository.deleteById(1);

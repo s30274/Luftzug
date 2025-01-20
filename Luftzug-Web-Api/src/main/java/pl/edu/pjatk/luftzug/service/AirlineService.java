@@ -1,5 +1,7 @@
 package pl.edu.pjatk.luftzug.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import pl.edu.pjatk.luftzug.model.Airline;
 import pl.edu.pjatk.luftzug.repository.AirlineRepository;
 import pl.edu.pjatk.luftzug.service.abstraction.IAirlineService;
@@ -7,12 +9,10 @@ import pl.edu.pjatk.luftzug.service.abstraction.IAirlineService;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor
 public class AirlineService implements IAirlineService {
     private final AirlineRepository repository;
-
-    public AirlineService(AirlineRepository repository){
-        this.repository = repository;
-    }
 
     @Override
     public List<Airline> getAllAirlines() {

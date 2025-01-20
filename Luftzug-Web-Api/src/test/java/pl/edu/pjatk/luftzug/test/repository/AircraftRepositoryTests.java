@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import pl.edu.pjatk.luftzug.model.Aircraft;
 import pl.edu.pjatk.luftzug.repository.AircraftRepository;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class AircraftRepositoryTests {
 
     @Autowired
@@ -24,7 +26,7 @@ public class AircraftRepositoryTests {
     @Test
     @Order(1)
     @Rollback(value = false)
-    public void saveAircraftTest() {
+    public void saveAircraft() {
 
         Aircraft aircraft = new Aircraft();
         aircraft.setCode("2137");
@@ -39,7 +41,7 @@ public class AircraftRepositoryTests {
 
     @Test
     @Order(2)
-    public void getAircraftTest() {
+    public void getAircraftById() {
 
         // action
         Aircraft aircraft = aircraftRepository.findById(1L).get();
@@ -50,7 +52,18 @@ public class AircraftRepositoryTests {
 
     @Test
     @Order(3)
-    public void getAircraftListTest() {
+    public void getAircraftByCode() {
+
+        // action
+        Aircraft aircraft = aircraftRepository.findAircraftByCode("2137").getFirst();
+
+        // verify
+        assertThat(aircraft.getCode()).isEqualTo("2137");
+    }
+
+    @Test
+    @Order(4)
+    public void getAircraftList() {
 
         // action
         List<Aircraft> aircrafts = aircraftRepository.findAll();
@@ -60,9 +73,9 @@ public class AircraftRepositoryTests {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @Rollback(value = false)
-    public void updateAircraftTest() {
+    public void updateAircraft() {
 
         // action
         Aircraft aircraft = aircraftRepository.findById(1L).get();
@@ -74,9 +87,9 @@ public class AircraftRepositoryTests {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @Rollback(value = false)
-    public void deleteAircraftByIdTest(){
+    public void deleteAircraftById(){
 
         // action
         aircraftRepository.deleteById(1L);

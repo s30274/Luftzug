@@ -3,6 +3,7 @@ package pl.edu.pjatk.luftzug.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.pjatk.luftzug.contract.ScheduleDto;
 import pl.edu.pjatk.luftzug.exception.ScheduleAlreadyExistsException;
 import pl.edu.pjatk.luftzug.exception.ScheduleNotFoundException;
 import pl.edu.pjatk.luftzug.exception.ScheduleWrongInputException;
@@ -26,8 +27,8 @@ public class ScheduleController {
     }
 
     @GetMapping    // <- endpoint
-    public ResponseEntity<List<Schedule>> getAllSchedules(){
-        List<Schedule> list = this.scheduleService.getAllSchedules();
+    public ResponseEntity<List<ScheduleDto>> getAllSchedules(){
+        List<ScheduleDto> list = this.scheduleService.getAllSchedules();
         if(list.isEmpty()){
             throw new ScheduleNotFoundException();
         }
@@ -35,13 +36,13 @@ public class ScheduleController {
     }
 
     @GetMapping("{id}")   // <- endpoint
-    public ResponseEntity<Optional<Schedule>> getScheduleById(@PathVariable Long id){
+    public ResponseEntity<ScheduleDto> getScheduleById(@PathVariable Long id){
         return new ResponseEntity<>(getSingleScheduleById(id), HttpStatus.OK);
     }
 
     @GetMapping("/departure/{code}")
-    public ResponseEntity<List<Schedule>> getScheduleByDepartureAirportCode(@PathVariable String code){
-        List<Schedule> list = this.scheduleService.getScheduleByDepartureAirport(code);
+    public ResponseEntity<List<ScheduleDto>> getScheduleByDepartureAirportCode(@PathVariable String code){
+        List<ScheduleDto> list = this.scheduleService.getScheduleByDepartureAirport(code);
         if(list.isEmpty()){
             throw new ScheduleNotFoundException();
         }
@@ -49,8 +50,8 @@ public class ScheduleController {
     }
 
     @GetMapping("/arrival/{code}")
-    public ResponseEntity<List<Schedule>> getScheduleByArrivalAirportCode(@PathVariable String code){
-        List<Schedule> list = this.scheduleService.getScheduleByArrivalAirport(code);
+    public ResponseEntity<List<ScheduleDto>> getScheduleByArrivalAirportCode(@PathVariable String code){
+        List<ScheduleDto> list = this.scheduleService.getScheduleByArrivalAirport(code);
         if(list.isEmpty()){
             throw new ScheduleNotFoundException();
         }
@@ -58,25 +59,25 @@ public class ScheduleController {
     }
 
     @GetMapping("/flight/{flightNumer}")
-    public ResponseEntity<List<Schedule>> getScheduleByFlightNumber(@PathVariable String flightNumer){
-        List<Schedule> list = this.scheduleService.getScheduleByFlightNumber(flightNumer);
-        if(list.isEmpty()){
+    public ResponseEntity<ScheduleDto> getScheduleByFlightNumber(@PathVariable String flightNumer){
+        ScheduleDto scheduleDto = this.scheduleService.getScheduleByFlightNumber(flightNumer);
+        if(scheduleDto == null){
             throw new ScheduleNotFoundException();
         }
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(scheduleDto, HttpStatus.OK);
     }
 
     @GetMapping("/pdf/{id}")   // <- endpoint
     public ResponseEntity<byte[]> getPdfScheduleById(@PathVariable Long id) throws IOException {
-        Optional<Schedule> schedule = getSingleScheduleById(id);
+        ScheduleDto schedule = getSingleScheduleById(id);
         String filename = "schedule-"+ LocalDateTime.now()+".pdf";
         return pdfService.createPdfResponse(schedule, filename);
     }
 
     @PostMapping   // <- endpoint
-    public ResponseEntity<Void> addSchedule(@RequestBody Schedule schedule){
-        List<Schedule> schedules = this.scheduleService.getScheduleByFlightNumber(schedule.getFlightNumber());
-        if(!schedules.isEmpty()){
+    public ResponseEntity<Void> addSchedule(@RequestBody ScheduleDto schedule){
+        ScheduleDto scheduleDto = this.scheduleService.getScheduleByFlightNumber(schedule.getFlightNumber());
+        if(scheduleDto != null){
             throw new ScheduleAlreadyExistsException();
         }
         checkIfInputDataIsCorrect(schedule);
@@ -85,10 +86,12 @@ public class ScheduleController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Void> updateSchedule(@PathVariable Long id, @RequestBody Schedule schedule){
-        Schedule scheduleToUpdate = getSingleScheduleById(id).get();
+    public ResponseEntity<Void> updateSchedule(@PathVariable Long id, @RequestBody ScheduleDto schedule){
+        schedule.setId(id);
+        getSingleScheduleById(id);
         checkIfInputDataIsCorrect(schedule);
-        this.scheduleService.updateSchedule(schedule, scheduleToUpdate);
+        this.scheduleService.deleteSchedule(id);
+        this.scheduleService.updateSchedule(schedule);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -99,16 +102,16 @@ public class ScheduleController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private Optional<Schedule> getSingleScheduleById(Long id){
-        Optional<Schedule> schedule = this.scheduleService.getScheduleById(id);
-        if(schedule.isEmpty()){
+    private ScheduleDto getSingleScheduleById(Long id){
+        ScheduleDto scheduleDto = this.scheduleService.getScheduleById(id);
+        if(scheduleDto == null){
             throw new ScheduleNotFoundException();
         }
-        return schedule;
+        return scheduleDto;
     }
 
-    private void checkIfInputDataIsCorrect(Schedule schedule){
-        if(schedule.getAircraft()==null || schedule.getFlightNumber().isEmpty() || schedule.getAirline()==null || schedule.getDuration()==null || schedule.getArrivalDateTime()==null || schedule.getArrivalAirport()==null || schedule.getDepartureDateTime()==null || schedule.getDepartureAirport()==null || !schedule.getDuration().isPositive()){
+    private void checkIfInputDataIsCorrect(ScheduleDto schedule){
+        if(schedule.getAircraftCode()==null || schedule.getFlightNumber().isEmpty() || schedule.getAirlineCode()==null || schedule.getDuration()==null || schedule.getArrivalDateTime()==null || schedule.getArrivalAirportCode()==null || schedule.getDepartureDateTime()==null || schedule.getDepartureAirportCode()==null || !schedule.getDuration().isPositive()){
             throw new ScheduleWrongInputException();
         }
     }

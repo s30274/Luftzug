@@ -1,24 +1,25 @@
 package pl.edu.pjatk.luftzug.service.abstraction;
 
+import pl.edu.pjatk.luftzug.contract.ScheduleDto;
 import pl.edu.pjatk.luftzug.model.*;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IScheduleService {
-    List<Schedule> getAllSchedules();
+    List<ScheduleDto> getAllSchedules();
 
-    Optional<Schedule> getScheduleById(Long id);
+    ScheduleDto getScheduleById(Long id);
 
-    List<Schedule> getScheduleByDepartureAirport(String departureAirportCode);
+    List<ScheduleDto> getScheduleByDepartureAirport(String departureAirportCode);
 
-    List<Schedule> getScheduleByArrivalAirport(String arrivalAirportCode);
+    List<ScheduleDto> getScheduleByArrivalAirport(String arrivalAirportCode);
 
-    List<Schedule> getScheduleByFlightNumber(String flightNumber);
+    ScheduleDto getScheduleByFlightNumber(String flightNumber);
 
-    Schedule saveSchedule(Schedule schedule);
+    Schedule saveSchedule(ScheduleDto dto);
 
-    Schedule updateSchedule(Schedule newSchedule, Schedule scheduleToUpdate);
+    Schedule updateSchedule(ScheduleDto scheduleToUpdate);
 
     void deleteSchedule(Long id);
 }

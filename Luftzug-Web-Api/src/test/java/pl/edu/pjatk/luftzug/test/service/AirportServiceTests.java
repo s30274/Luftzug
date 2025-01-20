@@ -5,9 +5,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pjatk.luftzug.contract.AirportDto;
 import pl.edu.pjatk.luftzug.model.Airport;
+import pl.edu.pjatk.luftzug.model.Country;
 import pl.edu.pjatk.luftzug.repository.AirportRepository;
 import pl.edu.pjatk.luftzug.service.AirportService;
+import pl.edu.pjatk.luftzug.service.mappers.IMappers;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,9 @@ public class AirportServiceTests {
     @Mock
     private AirportRepository airportRepository;
 
+    @Mock
+    private IMappers mappers;
+
     @InjectMocks
     private AirportService airportService;
 
@@ -28,24 +34,44 @@ public class AirportServiceTests {
 
     @BeforeEach
     public void setup(){
+        Country country = new Country();
+        country.setId(1);
+        country.setCode("CH");
+        country.setName("Switzerland");
+
         airport = new Airport();
         airport.setId(1L);
         airport.setCode("ZRH");
         airport.setName("Zurich");
+        airport.setLatitude(21);
+        airport.setLongitude(37);
+        airport.setCountry(country);
     }
 
     @Test
     @Order(1)
     public void getAllAirports(){
+        Country country1 = new Country();
+        country1.setId(2);
+        country1.setCode("PL");
+        country1.setName("Poland");
+
         Airport airport1 = new Airport();
+        airport1.setId(2L);
         airport1.setCode("WAW");
         airport1.setName("Warsaw");
+        airport1.setLatitude(51);
+        airport1.setLongitude(61);
+        airport1.setCountry(country1);
+
 
         // precondition
         given(airportRepository.findAll()).willReturn(List.of(airport, airport1));
+        given(mappers.getAirportToDtoMapper().map(airport)).willReturn(new AirportDto(1L, "ZRH", "Zurich", 21, 37, "CH"));
+        given(mappers.getAirportToDtoMapper().map(airport1)).willReturn(new AirportDto(2L, "WAW", "Warsaw", 51, 61, "PL"));
 
         // action
-        List<Airport> airportList = airportService.getAllAirports();
+        List<AirportDto> airportList = airportService.getAllAirports();
 
         // verify
         assertThat(airportList).isNotNull();
@@ -59,7 +85,7 @@ public class AirportServiceTests {
         given(airportRepository.findById(1L)).willReturn(Optional.of(airport));
 
         // action
-        Airport existingAirport = airportService.getAirportById(airport.getId()).get();
+        AirportDto existingAirport = airportService.getAirportById(airport.getId());
 
         // verify
         assertThat(existingAirport).isNotNull();
@@ -72,7 +98,7 @@ public class AirportServiceTests {
         given(airportRepository.findAirportByCode("ZRH")).willReturn(List.of(airport));
 
         // action
-        Airport existingAirport = airportService.getAirportByCode(airport.getCode()).get();
+        AirportDto existingAirport = airportService.getAirportByCode(airport.getCode());
 
         // verify
         assertThat(existingAirport).isNotNull();

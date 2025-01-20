@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit existing schedule</title>
+</head>
+<body>
+<h1>Edit existing schedule</h1>
+<form action="#" th:action="@{/editForm/{id}(id=${schedule.id})}" th:object="${schedule}" method="post">
+    <table>
+        <tr>
+            <td><label>Flight Number</label></td>
+            <td><label>Duration</label><br></td>
+            <td><label>Departure Airport</label></td>
+            <td><label>Departure Date</label></td>
+            <td><label>Arrival Airport</label></td>
+            <td><label>Arrival Date</label></td>
+            <td><label>Airline</label></td>
+            <td><label>Aircraft</label></td>
+            <td><label>Action</label></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="flightNumber" th:field="${schedule.flightNumber}" placeholder="Flight number"></td>
+            <td><input type="text" id="duration" th:field="${schedule.duration}"><br></td>
+            <td><input type="text" id="departureAirportCode" th:field="${schedule.departureAirportCode}" placeholder="Departure airport code"><br></td>
+            <td><input type="datetime-local" id="departureDateTime" th:field="${schedule.departureDateTime}"><br></td>
+            <td><input type="text" id="arrivalAirportCode" th:field="${schedule.arrivalAirportCode}" placeholder="Arrival airport code"><br></td>
+            <td><input type="datetime-local" id="arrivalDateTime" th:field="${schedule.arrivalDateTime}"><br></td>
+            <td><input type="text" id="airlineCode" th:field="${schedule.airlineCode}" placeholder="Airline code"><br></td>
+            <td><input type="text" id="aircraftCode" th:field="${schedule.aircraftCode}" placeholder="Aircraft code"><br></td>
+        </tr>
+        <tr>
+            <td><input type="submit" id="submit" value="Submit"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

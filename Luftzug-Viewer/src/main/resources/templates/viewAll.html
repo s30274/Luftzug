@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All schedules</title>
+</head>
+<body>
+<h1>List of all schedules</h1>
+<table id="alltable">
+    <tr>
+        <th>Flight Number</th>
+        <th>Duration</th>
+        <th>Departure Airport</th>
+        <th>Departure Date</th>
+        <th>Arrival Airport</th>
+        <th>Arrival Date</th>
+        <th>Airline</th>
+        <th>Aircraft</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="schedule : ${scheduleList}">
+        <td th:text="${schedule.flightNumber}"></td>
+        <td th:text="${schedule.duration}"></td>
+        <td th:text="${schedule.departureAirportCode}"></td>
+        <td th:text="${schedule.departureDateTime}"></td>
+        <td th:text="${schedule.arrivalAirportCode}"></td>
+        <td th:text="${schedule.arrivalDateTime}"></td>
+        <td th:text="${schedule.airlineCode}"></td>
+        <td th:text="${schedule.aircraftCode}"></td>
+        <td>
+            <form action="#" th:action="@{/editForm/{id}(id=${schedule.id})}" method="get">
+                <input type="submit" id="edit" value="Edit">
+            </form>
+            <form action="#" th:action="@{/delete/{id}(id=${schedule.id})}" method="post">
+                <input type="submit" id="delete" value="Delete">
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.edu.pjatk.luftzug.contract.ScheduleDto;
 import pl.edu.pjatk.luftzug.model.Schedule;
 import pl.edu.pjatk.luftzug.service.abstraction.IPdfService;
 
@@ -21,7 +22,7 @@ import java.util.Random;
 
 @Service
 public class PdfService implements IPdfService {
-    public ResponseEntity<byte[]> createPdfResponse(Optional<Schedule> schedule, String filename) throws IOException {
+    public ResponseEntity<byte[]> createPdfResponse(ScheduleDto schedule, String filename) throws IOException {
         byte[] contents = generatePdfContents(schedule);
         HttpHeaders headers = getHttpHeadersForPdf(filename);
         ResponseEntity<byte[]> response = new ResponseEntity<>(contents, headers, HttpStatus.OK);
@@ -29,14 +30,14 @@ public class PdfService implements IPdfService {
         return response;
     }
 
-    private byte[] generatePdfContents(Optional<Schedule> schedule) throws IOException {
+    private byte[] generatePdfContents(ScheduleDto schedule) throws IOException {
         File file = generateTemporaryPdfFile(schedule);
         byte[] contents = Files.readAllBytes(file.toPath());
         file.delete();
         return contents;
     }
 
-    private File generateTemporaryPdfFile(Optional<Schedule> schedule) throws IOException {
+    private File generateTemporaryPdfFile(ScheduleDto schedule) throws IOException {
         PDDocument document = createDocument(schedule);
         File file = new File(new Random().toString());
         document.save(file);
@@ -44,7 +45,7 @@ public class PdfService implements IPdfService {
         return file;
     }
 
-    private PDDocument createDocument(Optional<Schedule> schedule) throws IOException {
+    private PDDocument createDocument(ScheduleDto schedule) throws IOException {
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
         fillPage(schedule, new PDPageContentStream(document, page));
@@ -52,19 +53,19 @@ public class PdfService implements IPdfService {
         return document;
     }
 
-    private void fillPage(Optional<Schedule> schedule, PDPageContentStream stream) throws IOException {
+    private void fillPage(ScheduleDto schedule, PDPageContentStream stream) throws IOException {
         stream.beginText();
         stream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 14);
         stream.newLineAtOffset(25, 600);    // Set cursor to initial position
-        stream.showText("Flight number: " + schedule.get().getFlightNumber());
+        stream.showText("Flight number: " + schedule.getFlightNumber());
         stream.newLineAtOffset(0, -50);
-        stream.showText("Departure airport: " + schedule.get().getDepartureAirport().getName());
+        stream.showText("Departure airport: " + schedule.getDepartureAirportCode());
         stream.newLineAtOffset(0, -50);
-        stream.showText("Departure datetime: " + schedule.get().getDepartureDateTime().toString());
+        stream.showText("Departure datetime: " + schedule.getDepartureDateTime().toString());
         stream.newLineAtOffset(0, -50);
-        stream.showText("Arrival airport: " + schedule.get().getArrivalAirport().getName());
+        stream.showText("Arrival airport: " + schedule.getArrivalAirportCode());
         stream.newLineAtOffset(0, -50);
-        stream.showText("Arrival datetime: " + schedule.get().getArrivalDateTime().toString());
+        stream.showText("Arrival datetime: " + schedule.getArrivalDateTime().toString());
         stream.endText();
         stream.close();
     }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import pl.edu.pjatk.luftzug.model.Airport;
 import pl.edu.pjatk.luftzug.model.Country;
@@ -21,6 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class AirportRepositoryTests {
 
     @Autowired
@@ -32,7 +34,7 @@ public class AirportRepositoryTests {
     @Test
     @Order(1)
     @Rollback(value = false)
-    public void saveAirporTest() {
+    public void saveAirport() {
 
         Country country = new Country();
         country.setCode("PL");
@@ -54,7 +56,7 @@ public class AirportRepositoryTests {
 
     @Test
     @Order(2)
-    public void getAirportTest() {
+    public void getAirportById() {
 
         // action
         Airport airport = airportRepository.findById(1L).get();
@@ -65,7 +67,18 @@ public class AirportRepositoryTests {
 
     @Test
     @Order(3)
-    public void getAirportListTest() {
+    public void getAirportByCode() {
+
+        // action
+        Airport airport = airportRepository.findAirportByCode("GDA").getFirst();
+
+        // verify
+        assertThat(airport.getCode()).isEqualTo("GDA");
+    }
+
+    @Test
+    @Order(4)
+    public void getAirportList() {
 
         // action
         List<Airport> airports = airportRepository.findAll();
@@ -75,9 +88,9 @@ public class AirportRepositoryTests {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @Rollback(value = false)
-    public void updateAirportTest() {
+    public void updateAirport() {
 
         // action
         Airport airport = airportRepository.findById(1L).get();
@@ -89,9 +102,9 @@ public class AirportRepositoryTests {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @Rollback(value = false)
-    public void deleteAirportByIdTest(){
+    public void deleteAirportById(){
 
         // action
         airportRepository.deleteById(1L);
@@ -99,5 +112,7 @@ public class AirportRepositoryTests {
 
         // verify
         assertThat(airport).isEmpty();
+
+        countryRepository.deleteById(1);
     }
 }

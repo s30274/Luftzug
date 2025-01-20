@@ -1,11 +1,10 @@
 package pl.edu.pjatk.luftzug.service.abstraction;
 
 import org.springframework.http.ResponseEntity;
-import pl.edu.pjatk.luftzug.model.Schedule;
+import pl.edu.pjatk.luftzug.contract.ScheduleDto;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public interface IPdfService {
-    ResponseEntity<byte[]> createPdfResponse(Optional<Schedule> schedule, String fileName) throws IOException;
+    ResponseEntity<byte[]> createPdfResponse(ScheduleDto schedule, String fileName) throws IOException;
 }

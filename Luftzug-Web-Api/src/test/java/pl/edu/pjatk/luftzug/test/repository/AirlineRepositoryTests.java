@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import pl.edu.pjatk.luftzug.model.Airline;
 import pl.edu.pjatk.luftzug.repository.AirlineRepository;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class AirlineRepositoryTests {
 
     @Autowired
@@ -27,7 +29,7 @@ public class AirlineRepositoryTests {
     @Test
     @Order(1)
     @Rollback(value = false)
-    public void saveAirlineTest() {
+    public void saveAirline() {
 
         Airline airline = new Airline();
         airline.setCode("LX");
@@ -42,7 +44,7 @@ public class AirlineRepositoryTests {
 
     @Test
     @Order(2)
-    public void getAirlineTest() {
+    public void getAirlineById() {
 
         // action
         Airline airline = airlineRepository.findById(1L).get();
@@ -53,7 +55,13 @@ public class AirlineRepositoryTests {
 
     @Test
     @Order(3)
-    public void getAirlineListTest() {
+    public void getAirlineByCode() {
+
+    }
+
+    @Test
+    @Order(3)
+    public void getAirlineList() {
 
         // action
         List<Airline> airlines = airlineRepository.findAll();
@@ -65,7 +73,7 @@ public class AirlineRepositoryTests {
     @Test
     @Order(4)
     @Rollback(value = false)
-    public void updateAirlineTest() {
+    public void updateAirline() {
 
         // action
         Airline airline = airlineRepository.findById(1L).get();
@@ -79,7 +87,7 @@ public class AirlineRepositoryTests {
     @Test
     @Order(5)
     @Rollback(value = false)
-    public void deleteAirlineByIdTest(){
+    public void deleteAirlineById(){
 
         // action
         airlineRepository.deleteById(1L);

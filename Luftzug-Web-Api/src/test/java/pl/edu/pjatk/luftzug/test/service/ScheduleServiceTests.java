@@ -5,9 +5,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.edu.pjatk.luftzug.contract.ScheduleDto;
 import pl.edu.pjatk.luftzug.model.*;
 import pl.edu.pjatk.luftzug.repository.ScheduleRepository;
 import pl.edu.pjatk.luftzug.service.ScheduleService;
+import pl.edu.pjatk.luftzug.service.mappers.IMappers;
+import pl.edu.pjatk.luftzug.service.mappers.Mappers;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -28,6 +32,8 @@ public class ScheduleServiceTests {
 
     @InjectMocks
     private ScheduleService scheduleService;
+
+    private IMappers mappers;
 
     private Schedule schedule;
 
@@ -92,7 +98,7 @@ public class ScheduleServiceTests {
         given(scheduleRepository.findAll()).willReturn(List.of(schedule, schedule1));
 
         // action
-        List<Schedule> scheduleList = scheduleService.getAllSchedules();
+        List<ScheduleDto> scheduleList = scheduleService.getAllSchedules();
 
         // verify
         assertThat(scheduleList).isNotNull();
@@ -106,7 +112,7 @@ public class ScheduleServiceTests {
         given(scheduleRepository.findById(1L)).willReturn(Optional.of(schedule));
 
         // action
-        Schedule existingSchedule = scheduleService.getScheduleById(schedule.getId()).get();
+        ScheduleDto existingSchedule = scheduleService.getScheduleById(schedule.getId());
 
         // verify
         assertThat(existingSchedule).isNotNull();
@@ -119,7 +125,7 @@ public class ScheduleServiceTests {
         given(scheduleRepository.findScheduleByDepartureAirportCode("WAW")).willReturn(List.of(schedule));
 
         // action
-        Schedule existingSchedule = scheduleService.getScheduleByDepartureAirport(schedule.getDepartureAirport().getCode()).getFirst();
+        ScheduleDto existingSchedule = scheduleService.getScheduleByDepartureAirport(schedule.getDepartureAirport().getCode()).getFirst();
 
         // verify
         assertThat(existingSchedule).isNotNull();
@@ -132,7 +138,7 @@ public class ScheduleServiceTests {
         given(scheduleRepository.findScheduleByArrivalAirportCode("ZRH")).willReturn(List.of(schedule));
 
         // action
-        Schedule existingSchedule = scheduleService.getScheduleByArrivalAirport(schedule.getArrivalAirport().getCode()).getFirst();
+        ScheduleDto existingSchedule = scheduleService.getScheduleByArrivalAirport(schedule.getArrivalAirport().getCode()).getFirst();
 
         // verify
         assertThat(existingSchedule).isNotNull();
@@ -145,7 +151,7 @@ public class ScheduleServiceTests {
         given(scheduleRepository.findScheduleByFlightNumber("2137")).willReturn(List.of(schedule));
 
         // action
-        Schedule existingSchedule = scheduleService.getScheduleByFlightNumber(schedule.getFlightNumber()).getFirst();
+        ScheduleDto existingSchedule = scheduleService.getScheduleByFlightNumber(schedule.getFlightNumber());
 
         // verify
         assertThat(existingSchedule).isNotNull();
@@ -158,7 +164,7 @@ public class ScheduleServiceTests {
         given(scheduleRepository.save(schedule)).willReturn(schedule);
 
         // action
-        Schedule savedSchedule = scheduleService.saveSchedule(schedule);
+        Schedule savedSchedule = scheduleService.saveSchedule(mappers.getScheduleToDtoMapper().map(schedule));
 
         // verify
         assertThat(savedSchedule).isNotNull();
@@ -174,7 +180,7 @@ public class ScheduleServiceTests {
         given(scheduleRepository.save(schedule)).willReturn(schedule);
 
         // action
-        Schedule updatedSchedule = scheduleService.updateSchedule(newSchedule, schedule);
+        Schedule updatedSchedule = scheduleService.updateSchedule(mappers.getScheduleToDtoMapper().map(schedule));
 
         // verify
         assertThat(updatedSchedule.getFlightNumber()).isEqualTo("2139");

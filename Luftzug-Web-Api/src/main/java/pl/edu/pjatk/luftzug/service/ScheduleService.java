@@ -1,62 +1,76 @@
 package pl.edu.pjatk.luftzug.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.edu.pjatk.luftzug.contract.ScheduleDto;
 import pl.edu.pjatk.luftzug.model.*;
 import pl.edu.pjatk.luftzug.repository.ScheduleRepository;
 import pl.edu.pjatk.luftzug.service.abstraction.IScheduleService;
+import pl.edu.pjatk.luftzug.service.mappers.IMappers;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ScheduleService implements IScheduleService {
     private final ScheduleRepository repository;
-    public ScheduleService(ScheduleRepository repository){
-        this.repository = repository;
+    private final IMappers mappers;
+
+    @Override
+    public List<ScheduleDto> getAllSchedules() {
+        return this.repository.findAll()
+                .stream()
+                .map(schedule -> mappers.getScheduleToDtoMapper().map(schedule))
+                .toList();
     }
 
     @Override
-    public List<Schedule> getAllSchedules() {
-        return this.repository.findAll();
+    public ScheduleDto getScheduleById(Long id) {
+        Optional<Schedule> optionalSchedule = this.repository.findById(id);
+        if(optionalSchedule.isPresent()){
+            return mappers.getScheduleToDtoMapper().map(optionalSchedule.get());
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Optional<Schedule> getScheduleById(Long id) {
-        return this.repository.findById(id);
+    public List<ScheduleDto> getScheduleByDepartureAirport(String departureAirportCode) {
+        return this.repository.findScheduleByDepartureAirportCode(departureAirportCode)
+                .stream()
+                .map(schedule -> mappers.getScheduleToDtoMapper().map(schedule))
+                .toList();
     }
 
     @Override
-    public List<Schedule> getScheduleByDepartureAirport(String departureAirportCode) {
-        return this.repository.findScheduleByDepartureAirportCode(departureAirportCode);
+    public List<ScheduleDto> getScheduleByArrivalAirport(String arrivalAirportCode) {
+        return this.repository.findScheduleByArrivalAirportCode(arrivalAirportCode)
+                .stream()
+                .map(schedule -> mappers.getScheduleToDtoMapper().map(schedule))
+                .toList();
     }
 
     @Override
-    public List<Schedule> getScheduleByArrivalAirport(String arrivalAirportCode) {
-        return this.repository.findScheduleByArrivalAirportCode(arrivalAirportCode);
+    public ScheduleDto getScheduleByFlightNumber(String flightNumber) {
+        Optional<Schedule> optionalSchedule = this.repository.findScheduleByFlightNumber(flightNumber).stream().findFirst();
+        if(optionalSchedule.isPresent()){
+            return mappers.getScheduleToDtoMapper().map(optionalSchedule.get());
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public List<Schedule> getScheduleByFlightNumber(String flightNumber) {
-        return this.repository.findScheduleByFlightNumber(flightNumber);
-    }
-
-    @Override
-    public Schedule saveSchedule(Schedule schedule) {
+    public Schedule saveSchedule(ScheduleDto dto) {
+        Schedule schedule = mappers.getDtoToScheduleMapper().map(dto);
         this.repository.save(schedule);
         return schedule;
     }
 
     @Override
-    public Schedule updateSchedule(Schedule newSchedule, Schedule scheduleToUpdate) {
-        scheduleToUpdate.setDuration(newSchedule.getDuration());
-        scheduleToUpdate.setDepartureAirport(newSchedule.getDepartureAirport());
-        scheduleToUpdate.setDepartureDateTime(newSchedule.getDepartureDateTime());
-        scheduleToUpdate.setArrivalAirport(newSchedule.getArrivalAirport());
-        scheduleToUpdate.setArrivalDateTime(newSchedule.getArrivalDateTime());
-        scheduleToUpdate.setAirline(newSchedule.getAirline());
-        scheduleToUpdate.setFlightNumber(newSchedule.getFlightNumber());
-        scheduleToUpdate.setAircraft(newSchedule.getAircraft());
-        return saveSchedule(scheduleToUpdate);
+    public Schedule updateSchedule(ScheduleDto dto) {
+        return saveSchedule(dto);
     }
 
     @Override

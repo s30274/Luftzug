@@ -1,14 +1,14 @@
 package pl.edu.pjatk.luftzug.service.abstraction;
 
-import pl.edu.pjatk.luftzug.model.Airport;
+import pl.edu.pjatk.luftzug.contract.AirportDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IAirportService {
-    List<Airport> getAllAirports();
+    List<AirportDto> getAllAirports();
 
-    Optional<Airport> getAirportById(Long id);
+    AirportDto getAirportById(Long id);
 
-    Optional<Airport> getAirportByCode(String code);
+    AirportDto getAirportByCode(String code);
 }
