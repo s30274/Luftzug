@@ -10,7 +10,7 @@ import pl.edu.pjatk.luftzug.model.Airport;
 import pl.edu.pjatk.luftzug.model.Country;
 import pl.edu.pjatk.luftzug.repository.AirportRepository;
 import pl.edu.pjatk.luftzug.service.AirportService;
-import pl.edu.pjatk.luftzug.service.mappers.IMappers;
+import pl.edu.pjatk.luftzug.service.mappers.IMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class AirportServiceTests {
     private AirportRepository airportRepository;
 
     @Mock
-    private IMappers mappers;
+    private IMap<Airport, AirportDto> airportToDtoMapper;
 
     @InjectMocks
     private AirportService airportService;
@@ -64,11 +64,10 @@ public class AirportServiceTests {
         airport1.setLongitude(61);
         airport1.setCountry(country1);
 
-
         // precondition
         given(airportRepository.findAll()).willReturn(List.of(airport, airport1));
-        given(mappers.getAirportToDtoMapper().map(airport)).willReturn(new AirportDto(1L, "ZRH", "Zurich", 21, 37, "CH"));
-        given(mappers.getAirportToDtoMapper().map(airport1)).willReturn(new AirportDto(2L, "WAW", "Warsaw", 51, 61, "PL"));
+        given(airportToDtoMapper.map(airport)).willReturn(new AirportDto(1L, "ZRH", "Zurich", 21, 37, "CH"));
+        given(airportToDtoMapper.map(airport1)).willReturn(new AirportDto(2L, "WAW", "Warsaw", 51, 61, "PL"));
 
         // action
         List<AirportDto> airportList = airportService.getAllAirports();
@@ -83,9 +82,14 @@ public class AirportServiceTests {
     public void getAirportById(){
         // precondition
         given(airportRepository.findById(1L)).willReturn(Optional.of(airport));
+        given(airportToDtoMapper.map(airport)).willReturn(new AirportDto(1L, "ZRH", "Zurich", 21, 37, "CH"));
 
         // action
-        AirportDto existingAirport = airportService.getAirportById(airport.getId());
+        System.out.println(airport);
+        List<AirportDto> airportList = airportService.getAllAirports();
+        System.out.println(airportList.size());
+        AirportDto existingAirport = airportService.getAirportById(1L);
+        System.out.println(existingAirport);
 
         // verify
         assertThat(existingAirport).isNotNull();
@@ -96,6 +100,7 @@ public class AirportServiceTests {
     public void getAirportByCode(){
         // precondition
         given(airportRepository.findAirportByCode("ZRH")).willReturn(List.of(airport));
+        given(airportToDtoMapper.map(airport)).willReturn(new AirportDto(1L, "ZRH", "Zurich", 21, 37, "CH"));
 
         // action
         AirportDto existingAirport = airportService.getAirportByCode(airport.getCode());

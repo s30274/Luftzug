@@ -5,18 +5,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.pjatk.luftzug.contract.ScheduleDto;
 import pl.edu.pjatk.luftzug.model.*;
 import pl.edu.pjatk.luftzug.repository.ScheduleRepository;
 import pl.edu.pjatk.luftzug.service.ScheduleService;
-import pl.edu.pjatk.luftzug.service.mappers.IMappers;
-import pl.edu.pjatk.luftzug.service.mappers.Mappers;
+import pl.edu.pjatk.luftzug.service.mappers.IMap;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -24,18 +20,22 @@ import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ScheduleServiceTests {
+public class ScheduleServicePostPutDeleteTests {
     @Mock
     private ScheduleRepository scheduleRepository;
+
+    @Mock
+    private IMap<ScheduleDto, Schedule> dtoToScheduleMapper;
 
     @InjectMocks
     private ScheduleService scheduleService;
 
-    private IMappers mappers;
-
     private Schedule schedule;
+
+    private ScheduleDto dto;
 
     @BeforeEach
     public void setup(){
@@ -77,123 +77,57 @@ public class ScheduleServiceTests {
 
         schedule = new Schedule();
         schedule.setId(1L);
-        schedule.setDuration(Duration.ZERO);
+        schedule.setDuration(Duration.parse("PT1H37M"));
         schedule.setDepartureAirport(departureAirport);
-        schedule.setDepartureDateTime(LocalDateTime.now());
+        schedule.setDepartureDateTime(LocalDateTime.parse("2025-01-20T20:00"));
         schedule.setArrivalAirport(arrivalAirport);
-        schedule.setArrivalDateTime(LocalDateTime.now());
+        schedule.setArrivalDateTime(LocalDateTime.parse("2025-01-20T21:37"));
         schedule.setAirline(airline);
         schedule.setFlightNumber("2137");
         schedule.setAircraft(aircraft);
+
+        dto = new ScheduleDto(1L, "2137", Duration.parse("PT1H37M"), "WAW", LocalDateTime.parse("2025-01-20T20:00"), "ZRH", LocalDateTime.parse("2025-01-20T21:37"), "LX", "320");
     }
 
     @Test
     @Order(1)
-    public void getAllSchedules(){
-        Schedule schedule1 = new Schedule();
-        schedule1.setId(2L);
-        schedule1.setFlightNumber("2138");
-
-        // precondition
-        given(scheduleRepository.findAll()).willReturn(List.of(schedule, schedule1));
-
-        // action
-        List<ScheduleDto> scheduleList = scheduleService.getAllSchedules();
-
-        // verify
-        assertThat(scheduleList).isNotNull();
-        assertThat(scheduleList.size()).isEqualTo(2);
-    }
-
-    @Test
-    @Order(2)
-    public void getScheduleById(){
-        // precondition
-        given(scheduleRepository.findById(1L)).willReturn(Optional.of(schedule));
-
-        // action
-        ScheduleDto existingSchedule = scheduleService.getScheduleById(schedule.getId());
-
-        // verify
-        assertThat(existingSchedule).isNotNull();
-    }
-
-    @Test
-    @Order(3)
-    public void getScheduleByDepartureAirport(){
-        // precondition
-        given(scheduleRepository.findScheduleByDepartureAirportCode("WAW")).willReturn(List.of(schedule));
-
-        // action
-        ScheduleDto existingSchedule = scheduleService.getScheduleByDepartureAirport(schedule.getDepartureAirport().getCode()).getFirst();
-
-        // verify
-        assertThat(existingSchedule).isNotNull();
-    }
-
-    @Test
-    @Order(4)
-    public void getScheduleByArrivalAirport(){
-        // precondition
-        given(scheduleRepository.findScheduleByArrivalAirportCode("ZRH")).willReturn(List.of(schedule));
-
-        // action
-        ScheduleDto existingSchedule = scheduleService.getScheduleByArrivalAirport(schedule.getArrivalAirport().getCode()).getFirst();
-
-        // verify
-        assertThat(existingSchedule).isNotNull();
-    }
-
-    @Test
-    @Order(5)
-    public void getScheduleByFlightNumber(){
-        // precondition
-        given(scheduleRepository.findScheduleByFlightNumber("2137")).willReturn(List.of(schedule));
-
-        // action
-        ScheduleDto existingSchedule = scheduleService.getScheduleByFlightNumber(schedule.getFlightNumber());
-
-        // verify
-        assertThat(existingSchedule).isNotNull();
-    }
-
-    @Test
-    @Order(6)
     public void saveSchedule(){
         // precondition
         given(scheduleRepository.save(schedule)).willReturn(schedule);
+        given(dtoToScheduleMapper.map(dto)).willReturn(schedule);
 
         // action
-        Schedule savedSchedule = scheduleService.saveSchedule(mappers.getScheduleToDtoMapper().map(schedule));
+        Schedule savedSchedule = scheduleService.saveSchedule(dto);
 
         // verify
         assertThat(savedSchedule).isNotNull();
     }
 
     @Test
-    @Order(7)
+    @Order(2)
     public void updateSchedule(){
         Schedule newSchedule = schedule;
         newSchedule.setFlightNumber("2139");
+        dto.setFlightNumber("2139");
 
         // precondition
-        given(scheduleRepository.save(schedule)).willReturn(schedule);
+        given(dtoToScheduleMapper.map(dto)).willReturn(schedule);
 
         // action
-        Schedule updatedSchedule = scheduleService.updateSchedule(mappers.getScheduleToDtoMapper().map(schedule));
+        Schedule updatedSchedule = scheduleService.updateSchedule(dto);
 
         // verify
         assertThat(updatedSchedule.getFlightNumber()).isEqualTo("2139");
     }
 
     @Test
-    @Order(8)
+    @Order(3)
     public void deleteSchedule(){
         // prediction
         willDoNothing().given(scheduleRepository).deleteById(schedule.getId());
 
         // action
-        scheduleRepository.deleteById(schedule.getId());
+        scheduleRepository.deleteById(dto.getId());
 
         // verify
         verify(scheduleRepository, times(1)).deleteById(schedule.getId());
