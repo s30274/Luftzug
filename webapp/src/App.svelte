@@ -91,6 +91,12 @@
     await refreshData();
   };
 
+  // Download
+
+  const downloadSchedulePdf = (id) => {
+    window.open(`/api/v1/schedule/pdf/${id}`, '_blank').focus();
+  }
+
   // Search
 
   $: filteredSchedules = schedules.filter(schedule =>
@@ -247,6 +253,7 @@
       <td class="action-buttons">
         <button class="edit" on:click={() => openEditSchedule(schedule.id)}>Edit</button>
         <button class="delete" on:click={() => deleteSchedule(schedule.id)}>Delete</button>
+        <button class="pdf" on:click={() => downloadSchedulePdf(schedule.id)}>Pdf</button>
       </td>
     </tr>
   {/each}
