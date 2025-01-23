@@ -1,5 +1,7 @@
 package pl.edu.pjatk.luftzug.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/schedule")
 public class ScheduleController {
+    Logger logger = LoggerFactory.getLogger(ScheduleController.class);
     private final IScheduleService scheduleService;
     private final IPdfService pdfService;
 
@@ -30,8 +33,10 @@ public class ScheduleController {
     public ResponseEntity<List<ScheduleDto>> getAllSchedules(){
         List<ScheduleDto> list = this.scheduleService.getAllSchedules();
         if(list.isEmpty()){
+            logger.warn("No schedules found in all schedules.");
             throw new ScheduleNotFoundException();
         }
+        logger.info("Requested all schedules");
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -44,8 +49,10 @@ public class ScheduleController {
     public ResponseEntity<List<ScheduleDto>> getScheduleByDepartureAirportCode(@PathVariable String code){
         List<ScheduleDto> list = this.scheduleService.getScheduleByDepartureAirport(code);
         if(list.isEmpty()){
+            logger.warn("No schedules with departure airport code: "+code+" found.");
             throw new ScheduleNotFoundException();
         }
+        logger.info("Requested schedule with departure airport code: "+code+".");
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -53,8 +60,10 @@ public class ScheduleController {
     public ResponseEntity<List<ScheduleDto>> getScheduleByArrivalAirportCode(@PathVariable String code){
         List<ScheduleDto> list = this.scheduleService.getScheduleByArrivalAirport(code);
         if(list.isEmpty()){
+            logger.warn("No schedules with arrival code: "+code+" found.");
             throw new ScheduleNotFoundException();
         }
+        logger.info("Requested schedule with arrival airport code: "+code+" found.");
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -62,8 +71,10 @@ public class ScheduleController {
     public ResponseEntity<ScheduleDto> getScheduleByFlightNumber(@PathVariable String flightNumer){
         ScheduleDto scheduleDto = this.scheduleService.getScheduleByFlightNumber(flightNumer);
         if(scheduleDto == null){
+            logger.warn("No schedules with flight number: "+flightNumer+" found.");
             throw new ScheduleNotFoundException();
         }
+        logger.info("Requested schedule with flight number: "+flightNumer+" found.");
         return new ResponseEntity<>(scheduleDto, HttpStatus.OK);
     }
 
@@ -71,6 +82,7 @@ public class ScheduleController {
     public ResponseEntity<byte[]> getPdfScheduleById(@PathVariable Long id) throws IOException {
         ScheduleDto schedule = getSingleScheduleById(id);
         String filename = "schedule-"+ LocalDateTime.now()+".pdf";
+        logger.info("Requested pdf of schedule with id: "+id+".");
         return pdfService.createPdfResponse(schedule, filename);
     }
 
@@ -78,10 +90,12 @@ public class ScheduleController {
     public ResponseEntity<Void> addSchedule(@RequestBody ScheduleDto schedule){
         ScheduleDto scheduleDto = this.scheduleService.getScheduleByFlightNumber(schedule.getFlightNumber());
         if(scheduleDto != null){
+            logger.warn("Trying to add schedule but it already exists!");
             throw new ScheduleAlreadyExistsException();
         }
         checkIfInputDataIsCorrect(schedule);
         this.scheduleService.saveSchedule(schedule);
+        logger.info("Added new schedule");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -92,6 +106,7 @@ public class ScheduleController {
         checkIfInputDataIsCorrect(schedule);
         this.scheduleService.deleteSchedule(id);
         this.scheduleService.updateSchedule(schedule);
+        logger.info("Updated schedule with id: "+id+".");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -99,12 +114,14 @@ public class ScheduleController {
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id){
         getSingleScheduleById(id);
         this.scheduleService.deleteSchedule(id);
+        logger.info("Deleted schedule with id: "+id+".");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private ScheduleDto getSingleScheduleById(Long id){
         ScheduleDto scheduleDto = this.scheduleService.getScheduleById(id);
         if(scheduleDto == null){
+            logger.warn("Could not get schedule with id: "+id+".");
             throw new ScheduleNotFoundException();
         }
         return scheduleDto;
@@ -112,6 +129,7 @@ public class ScheduleController {
 
     private void checkIfInputDataIsCorrect(ScheduleDto schedule){
         if(schedule.getAircraftCode()==null || schedule.getFlightNumber().isEmpty() || schedule.getAirlineCode()==null || schedule.getDuration()==null || schedule.getArrivalDateTime()==null || schedule.getArrivalAirportCode()==null || schedule.getDepartureDateTime()==null || schedule.getDepartureAirportCode()==null || !schedule.getDuration().isPositive()){
+            logger.warn("Incorrect schedule input");
             throw new ScheduleWrongInputException();
         }
     }

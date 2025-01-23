@@ -1,0 +1,159 @@
+2025-01-23T12:46:42.811+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Starting LuftzugWebApiApplication using Java 21.0.2 with PID 35992 (/home/piotr/IdeaProjects/Luftzug/Luftzug-Web-Api/build/classes/java/main started by piotr in /home/piotr/IdeaProjects/Luftzug)
+2025-01-23T12:46:42.813+01:00 DEBUG 35992 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-01-23T12:46:42.814+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-01-23T12:46:43.344+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-23T12:46:43.406+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 5 JPA repository interfaces.
+2025-01-23T12:46:43.807+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-01-23T12:46:43.818+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-23T12:46:43.819+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-23T12:46:43.851+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-23T12:46:43.852+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1003 ms
+2025-01-23T12:46:43.924+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-23T12:46:43.975+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@43f03c23
+2025-01-23T12:46:43.977+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-23T12:46:44.008+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-23T12:46:44.039+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
+2025-01-23T12:46:44.059+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-23T12:46:44.212+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-23T12:46:44.236+01:00  WARN 35992 --- [Luftzug-Web-Api] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-01-23T12:46:44.242+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 11.6.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-23T12:46:44.637+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-23T12:46:44.639+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T12:46:44.828+01:00  WARN 35992 --- [Luftzug-Web-Api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-23T12:46:44.999+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-01-23T12:46:45.005+01:00  INFO 35992 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Started LuftzugWebApiApplication in 2.558 seconds (process running for 3.04)
+2025-01-23T12:46:45.764+01:00  INFO 35992 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-23T12:46:45.767+01:00  INFO 35992 --- [Luftzug-Web-Api] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-23T12:46:45.772+01:00  INFO 35992 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T12:46:45.774+01:00  INFO 35992 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-23T12:46:45.782+01:00  INFO 35992 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-23T12:51:30.181+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Starting LuftzugWebApiApplication using Java 21.0.2 with PID 37901 (/home/piotr/IdeaProjects/Luftzug/Luftzug-Web-Api/build/classes/java/main started by piotr in /home/piotr/IdeaProjects/Luftzug)
+2025-01-23T12:51:30.183+01:00 DEBUG 37901 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-01-23T12:51:30.184+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-01-23T12:51:30.609+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-23T12:51:30.640+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 5 JPA repository interfaces.
+2025-01-23T12:51:30.854+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-01-23T12:51:30.860+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-23T12:51:30.861+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-23T12:51:30.879+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-23T12:51:30.880+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 658 ms
+2025-01-23T12:51:30.929+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-23T12:51:30.969+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4451f60c
+2025-01-23T12:51:30.970+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-23T12:51:30.999+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-23T12:51:31.021+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
+2025-01-23T12:51:31.034+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-23T12:51:31.180+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-23T12:51:31.203+01:00  WARN 37901 --- [Luftzug-Web-Api] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-01-23T12:51:31.210+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 11.6.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-23T12:51:31.627+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-23T12:51:31.629+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T12:51:31.820+01:00  WARN 37901 --- [Luftzug-Web-Api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-23T12:51:31.993+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-01-23T12:51:31.998+01:00  INFO 37901 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Started LuftzugWebApiApplication in 2.203 seconds (process running for 2.677)
+2025-01-23T12:51:42.673+01:00  INFO 37901 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-23T12:51:42.673+01:00  INFO 37901 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-23T12:51:42.675+01:00  INFO 37901 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-01-23T12:51:42.862+01:00  INFO 37901 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] p.e.p.l.controller.ScheduleController    : Requested all schedules
+2025-01-23T12:52:55.842+01:00  INFO 37901 --- [Luftzug-Web-Api] [http-nio-8081-exec-4] p.e.p.l.controller.ScheduleController    : Requested schedule with codeWAW.
+2025-01-23T12:52:58.279+01:00  WARN 37901 --- [Luftzug-Web-Api] [http-nio-8081-exec-5] p.e.p.l.controller.ScheduleController    : No schedules with code WWA found.
+2025-01-23T12:56:30.394+01:00  INFO 37901 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-23T12:56:30.396+01:00  INFO 37901 --- [Luftzug-Web-Api] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-23T12:56:30.399+01:00  INFO 37901 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T12:56:30.401+01:00  INFO 37901 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-23T12:56:30.410+01:00  INFO 37901 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-23T12:56:32.751+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Starting LuftzugWebApiApplication using Java 21.0.2 with PID 39576 (/home/piotr/IdeaProjects/Luftzug/Luftzug-Web-Api/build/classes/java/main started by piotr in /home/piotr/IdeaProjects/Luftzug)
+2025-01-23T12:56:32.752+01:00 DEBUG 39576 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-01-23T12:56:32.752+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-01-23T12:56:33.037+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-23T12:56:33.068+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 5 JPA repository interfaces.
+2025-01-23T12:56:33.278+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-01-23T12:56:33.285+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-23T12:56:33.285+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-23T12:56:33.304+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-23T12:56:33.304+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 531 ms
+2025-01-23T12:56:33.357+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-23T12:56:33.400+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4451f60c
+2025-01-23T12:56:33.402+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-23T12:56:33.426+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-23T12:56:33.446+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
+2025-01-23T12:56:33.466+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-23T12:56:33.601+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-23T12:56:33.624+01:00  WARN 39576 --- [Luftzug-Web-Api] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-01-23T12:56:33.631+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 11.6.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-23T12:56:34.035+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-23T12:56:34.037+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T12:56:34.245+01:00  WARN 39576 --- [Luftzug-Web-Api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-23T12:56:34.435+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-01-23T12:56:34.439+01:00  INFO 39576 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Started LuftzugWebApiApplication in 2.043 seconds (process running for 2.514)
+2025-01-23T12:56:43.966+01:00  INFO 39576 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-23T12:56:43.966+01:00  INFO 39576 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-23T12:56:43.967+01:00  INFO 39576 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-01-23T12:56:44.068+01:00  INFO 39576 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] p.e.p.l.controller.ScheduleController    : Requested pdf of schedule with id: 1.
+2025-01-23T12:56:44.645+01:00  INFO 39576 --- [Luftzug-Web-Api] [http-nio-8081-exec-2] p.e.p.l.controller.ScheduleController    : Requested pdf of schedule with id: 1.
+2025-01-23T12:57:09.612+01:00  INFO 39576 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-23T12:57:09.614+01:00  INFO 39576 --- [Luftzug-Web-Api] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-23T12:57:09.618+01:00  INFO 39576 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T12:57:09.619+01:00  INFO 39576 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-23T12:57:09.627+01:00  INFO 39576 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-23T13:00:59.831+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Starting LuftzugWebApiApplication using Java 21.0.2 with PID 40988 (/home/piotr/IdeaProjects/Luftzug/Luftzug-Web-Api/build/classes/java/main started by piotr in /home/piotr/IdeaProjects/Luftzug)
+2025-01-23T13:00:59.833+01:00 DEBUG 40988 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-01-23T13:00:59.834+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-01-23T13:01:00.311+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-23T13:01:00.341+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 5 JPA repository interfaces.
+2025-01-23T13:01:00.542+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-01-23T13:01:00.549+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-23T13:01:00.549+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-23T13:01:00.568+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-23T13:01:00.569+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 700 ms
+2025-01-23T13:01:00.624+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-23T13:01:00.669+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4451f60c
+2025-01-23T13:01:00.670+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-23T13:01:00.695+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-23T13:01:00.717+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
+2025-01-23T13:01:00.731+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-23T13:01:00.865+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-23T13:01:00.889+01:00  WARN 40988 --- [Luftzug-Web-Api] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-01-23T13:01:00.895+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 11.6.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-23T13:01:01.321+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-23T13:01:01.324+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T13:01:01.512+01:00  WARN 40988 --- [Luftzug-Web-Api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-23T13:01:01.704+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-01-23T13:01:01.708+01:00  INFO 40988 --- [Luftzug-Web-Api] [main] p.e.p.luftzug.LuftzugWebApiApplication   : Started LuftzugWebApiApplication in 2.245 seconds (process running for 2.729)
+2025-01-23T13:01:43.268+01:00  INFO 40988 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-23T13:01:43.269+01:00  INFO 40988 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-23T13:01:43.270+01:00  INFO 40988 --- [Luftzug-Web-Api] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-01-23T13:01:45.990+01:00  WARN 40988 --- [Luftzug-Web-Api] [http-nio-8081-exec-2] p.e.p.l.controller.ScheduleController    : Could not get schedule with id: 200.
+2025-01-23T13:02:00.937+01:00  INFO 40988 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-23T13:02:00.941+01:00  INFO 40988 --- [Luftzug-Web-Api] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-23T13:02:00.946+01:00  INFO 40988 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-23T13:02:00.947+01:00  INFO 40988 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-23T13:02:00.955+01:00  INFO 40988 --- [Luftzug-Web-Api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
