@@ -5,11 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class AddFormPage {
+public class EditFormPage {
     private WebDriver webDriver;
 
     @FindBy(id="flightNumber")
@@ -39,35 +38,35 @@ public class AddFormPage {
     @FindBy(id="submit")
     private WebElement submitButton;
 
-    public AddFormPage(WebDriver webDriver){
+    public EditFormPage(WebDriver webDriver){
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
 
-    public AddFormPage open() {
-        this.webDriver.get("http://localhost:8082/addForm");
+    public EditFormPage open(String id) {
+        this.webDriver.get("http://localhost:8082/editForm/"+id);
         return this;
     }
 
-    public AddFormPage fillInFlightNumberInput(String text){
+    public EditFormPage fillInFlightNumberInput(String text){
         this.flightNumberInput.clear();
         this.flightNumberInput.sendKeys(text);
         return this;
     }
 
-    public AddFormPage fillInDurationInput(String test){
+    public EditFormPage fillInDurationInput(String test){
         this.durationInput.clear();
         this.durationInput.sendKeys(test);
         return this;
     }
 
-    public AddFormPage fillInDepartureAirportCodeInput(String text){
+    public EditFormPage fillInDepartureAirportCodeInput(String text){
         this.departureAirportCodeInput.clear();
         this.departureAirportCodeInput.sendKeys(text);
         return this;
     }
 
-    public AddFormPage fillInDepartureDateTimeInput(LocalDateTime date){
+    public EditFormPage fillInDepartureDateTimeInput(LocalDateTime date){
         this.departureDateTimeInput.clear();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String formattedDate = date.format(myFormatObj);
@@ -75,13 +74,13 @@ public class AddFormPage {
         return this;
     }
 
-    public AddFormPage fillInArrivalAirportCodeInput(String text){
+    public EditFormPage fillInArrivalAirportCodeInput(String text){
         this.arrivalAirportCodeInput.clear();
         this.arrivalAirportCodeInput.sendKeys(text);
         return this;
     }
 
-    public AddFormPage fillInArrivalDateTimeInput(LocalDateTime date){
+    public EditFormPage fillInArrivalDateTimeInput(LocalDateTime date){
         this.arrivalDateTimeInput.clear();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String formattedDate = date.format(myFormatObj);
@@ -89,13 +88,13 @@ public class AddFormPage {
         return this;
     }
 
-    public AddFormPage fillInAirlineCodeInput(String text){
+    public EditFormPage fillInAirlineCodeInput(String text){
         this.airlineCodeInput.clear();
         this.airlineCodeInput.sendKeys(text);
         return this;
     }
 
-    public AddFormPage fillInAircraftCodeInput(String text){
+    public EditFormPage fillInAircraftCodeInput(String text){
         this.aircraftCodeInput.clear();
         this.aircraftCodeInput.sendKeys(text);
         return this;

@@ -5,7 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +20,16 @@ public class ViewAllPage {
 
     @FindBy(id="alltable")
     private WebElement tableElement;
+
     private List<WebElement> rows = new ArrayList<>();
+
+    private List<WebElement> editButtons = new ArrayList<>();
+
+    private List<WebElement> deleteButtons = new ArrayList<>();
 
     public ViewAllPage(WebDriver webDriver){
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
-        this.rows = tableElement.findElements(By.tagName("tr"));
     }
 
     public boolean isHeaderVisible() {
@@ -37,6 +44,7 @@ public class ViewAllPage {
     public List<String> getData() {
         List<String> result = new ArrayList<>();
         StringBuilder tmp;
+        this.rows = tableElement.findElements(By.tagName("tr"));
         for (WebElement rowElement : rows) {
             List<WebElement> cells = rowElement.findElements(By.tagName("td"));
 
@@ -53,5 +61,17 @@ public class ViewAllPage {
         result.removeFirst();
 
         return result;
+    }
+
+    public EditFormPage editLastSchedule(){
+        this.editButtons = tableElement.findElements(By.id("edit"));
+        this.editButtons.getLast().click();
+        return new EditFormPage(webDriver);
+    }
+
+    public ViewAllPage deleteLastSchedule(){
+        this.deleteButtons = tableElement.findElements(By.id("delete"));
+        this.deleteButtons.getLast().click();
+        return this;
     }
 }
